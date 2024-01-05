@@ -1,7 +1,7 @@
 FROM alpine:3.9
 
-WORKDIR /app/ui/
-COPY ./ ../
+WORKDIR /app/
+COPY ./ ./
 
 RUN set -x \
  && apk --no-cache --update add python3 py3-pip \
@@ -9,4 +9,4 @@ RUN set -x \
 
 ENV FLASK_APP=ui.py
 
-ENTRYPOINT [ "gunicorn", "ui:app", "-b", "0.0.0.0" ]
+ENTRYPOINT [ "gunicorn", "--chdir", "ui", "ui:app", "-b", "0.0.0.0" ]
